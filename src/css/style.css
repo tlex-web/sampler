@@ -1,0 +1,143 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../assets/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+:root {
+    --primary-color: #570803;
+    --primary-color-light: #ff7961;
+    --primary-color-dark: #ba000d;
+    --primary-color-text: #ffffff;
+    --accent-color: #ff9800;
+    --accent-color-light: #ffc947;
+    --accent-color-dark: #c66900;
+    --accent-color-text: #000000;
+    --primary-text-color: #212121;
+    --secondary-text-color: #757575;
+    --divider-color: #bdbdbd;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    background-color: var(--primary-color);
+}
+
+.container {
+    max-width: 120rem;
+    width: 90%;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 4rem;
+    text-align: center;
+    color: var(--primary-color-text);
+    margin-bottom: 20px;
+}
+
+.section {
+    opacity: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100% - 60px);
+    width: 100%;
+    transition: opacity 0.4s ease;
+    padding: 0 20px;
+}
+
+.section.show {
+    opacity: 1;
+}
+
+.hide {
+    display: none;
+}
+
+nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-top: -5px;
+    width: 100%;
+}
+
+nav ul {
+    background-color: var(--secondary-background-color);
+    display: flex;
+    padding: 5px 0 0;
+    margin: 0;
+    list-style-type: none;
+    height: 60px;
+}
+
+nav ul li {
+    color: #f4f4f4;
+    cursor: pointer;
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+h1,
+nav ul li:hover,
+nav ul li.active {
+    color: var(--primary-color);
+}
+
+.alert {
+    text-align: center;
+    padding: 5px;
+    color: var(--accent-color);
+    border: var(--accent-color-dark) 1px solid;
+}
+
+.form-control {
+    margin: 15px 0;
+}
+
+.form-control label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-control input,
+.form-control select {
+    width: 100%;
+    padding: 4px;
+}
+
+.btn {
+    cursor: pointer;
+    display: inline-block;
+    border: 0;
+    background: var(--secondary-background-color);
+    color: #fff;
+    padding: 7px 10px;
+    margin-top: 10px;
+}
+
+.btn:active,
+.btn:focus {
+    outline: 0;
+}
