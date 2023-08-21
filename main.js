@@ -1,31 +1,50 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const fs = require('fs');
-const path = require('path');
+const { app, ipcMain, Menu, BrowserWindow } = require('electron');
+
+const MainWindow = require('./MainWindow');
+const Store = require('./Store');
+const createMenu = require('./menu');
+
+// Set env
+process.env.NODE_ENV = 'development';
+
+const isDev = process.env.NODE_ENV !== 'production' ? true : false;
+
+let mainWindow;
 
 function createWindow() {
-    const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
-        },
-    });
-
-    mainWindow.loadFile('index.html');
-
-    // mainWindow.webContents.openDevTools();
+    mainWindow = new MainWindow('index.html', isDev);
 }
 
-const iconName = path.join(__dirname, 'assets/icons/icon.png');
-
-// Create a new file to copy - you can also copy existing files.
-fs.writeFileSync(path.join(__dirname, 'drag-and-drop-1.md'), '# First file to test drag and drop');
+// Init store & defaults
+const store = new Store({
+    configName: 'user-settings',
+    defaults: {
+        settings: {
+            cpuOverload: 80,
+            alertFrequency: 5,
+        },
+    },
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.on('ready', () => {
     createWindow();
+
+    // Save settings
+    mainWindow.webContents.on('dom-ready', () => {
+        mainWindow.webContents.send('settings:get', store.get('settings'));
+    });
+
+    // Create menu
+    const mainMenuTemplate = createMenu(app, mainWindow, isDev);
+
+    // Build menu from template
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+
+    // Insert menu
+    Menu.setApplicationMenu(mainMenu);
 
     app.on('activate', function () {
         // On macOS it's common to re-create a window in the app when the
@@ -34,12 +53,10 @@ app.whenReady().then(() => {
     });
 });
 
-ipcMain.on('ondragstart', (event, fp) => {
-    event.sender.startDrag({
-        item: 'drag-and-drop-1.md',
-        file: path.join(__dirname, fp),
-        icon: iconName,
-    });
+// Set settings
+ipcMain.on('settings:set', (e, value) => {
+    store.set('settings', value);
+    mainWindow.webContents.send('settings:get', store.get('settings'));
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -47,4 +64,10 @@ ipcMain.on('ondragstart', (event, fp) => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') app.quit();
+
+    mainWindow = null;
+});
+
+app.on('close', () => {
+    mainWindow = null;
 });

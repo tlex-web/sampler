@@ -1,0 +1,231 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../assets/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+:root {
+    --primary-color: #00a9e2;
+    --primary-color-light: #a7a5a6;
+    --primary-color-dark: #a6a4a5;
+    --primary-color-text: #333;
+    --accent-color: #e75e0f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    background-color: var(--primary-color);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.container {
+    max-width: 120rem;
+    width: 90%;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 4rem;
+    text-align: center;
+    color: var(--primary-color-text);
+    margin-bottom: 20px;
+}
+
+.section {
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100% - 60px);
+    width: 100%;
+    transition: opacity .5s ease;
+    padding: 0;
+}
+
+.section.show {
+    opacity: 1;
+}
+
+.hide {
+    display: none;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.grid-item {
+    background-color: var(--secondary-background-color);
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    transition: all .5s ease;
+}
+
+.grid-item:hover {
+    transform: scale3d(1.1, 1.1, 1.1);
+}
+
+#nav {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    width: 100%;
+}
+
+#nav ul {
+    background-color: var(--secondary-background-color);
+    display: flex;
+    padding: 5px 0 0;
+    margin: 0;
+    list-style-type: none;
+    height: 6rem;
+}
+
+#nav ul li {
+    color: var(--primary-color-text);
+    cursor: pointer;
+    flex: 1;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all .5s ease;
+}
+
+#nav ul li:hover,
+#nav ul li.active {
+    color: var(--accent-color);
+    transform: scale3d(1.2, 1.2, 1.2);
+}
+
+#nav ul li p {
+    font-size: 1.2rem;
+    margin: 2px 0;
+}
+
+.alert {
+    text-align: center;
+    padding: 5px;
+    color: var(--accent-color);
+    border: var(--accent-color-dark) 1px solid;
+}
+
+form {
+    background-color: var(--secondary-background-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    width: 100%;
+}
+
+.form-control {
+    margin: 1.5rem 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-control label {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.form-control input,
+.form-control select {
+    width: 50%;
+    padding: 4px;
+}
+
+.btn {
+    cursor: pointer;
+    display: inline-block;
+    border: 0;
+    font-size: 1.5rem;
+    background: var(--secondary-background-color);
+    color: #fff;
+    padding: 1rem 1.3rem;
+    margin-top: 1rem;
+    animation: moveIn 2s cubic-bezier(0.4, 0, 1, 1) .5s forwards;
+    transition: all .2s ease;
+}
+
+.btn:hover {
+    transform: scale(1.2);
+    background: var(--accent-color);
+    box-shadow: #333 0 0 10px;
+    color: #fff;
+}
+
+.btn:link,
+.btn:visited {
+    text-decoration: none;
+    transition: all .2s ease;
+}
+
+.btn:active,
+.btn:focus {
+    outline: 0;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+
+    100% {
+        transform: scale3d(1.2, 1.2, 1.2);
+    }
+}
+
+@keyframes moveIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+
+    80% {
+        transform: translateX(1rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}

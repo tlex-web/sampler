@@ -5,11 +5,3 @@
  *
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
-
-const { contextBridge, ipcRenderer } = require('electron');
-
-contextBridge.exposeInMainWorld('electron', {
-    startDrag: fileName => {
-        ipcRenderer.send('ondragstart', fileName);
-    },
-});
