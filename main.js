@@ -1,8 +1,8 @@
 const { app, ipcMain, Menu, BrowserWindow } = require('electron');
 
-const MainWindow = require('./MainWindow');
-const Store = require('./Store');
-const createMenu = require('./menu');
+const MainWindow = require('./components/MainWindow');
+const Store = require('./utils/Store');
+const createMenu = require('./components/menu');
 
 // Set env
 process.env.NODE_ENV = 'development';
@@ -20,8 +20,7 @@ const store = new Store({
     configName: 'user-settings',
     defaults: {
         settings: {
-            cpuOverload: 80,
-            alertFrequency: 5,
+            seed: 1,
         },
     },
 });
