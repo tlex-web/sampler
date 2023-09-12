@@ -1,4 +1,4 @@
-const { app, ipcMain, Menu, BrowserWindow } = require('electron');
+const { app, ipcMain, nativeTheme, Menu, BrowserWindow } = require('electron');
 
 const MainWindow = require('./components/MainWindow');
 const Store = require('./utils/Store');
@@ -56,6 +56,20 @@ app.on('ready', () => {
 ipcMain.on('settings:set', (e, value) => {
     store.set('settings', value);
     mainWindow.webContents.send('settings:get', store.get('settings'));
+});
+
+// Add dark mode
+ipcMain.handle('dark-mode:toggle', () => {
+    if (nativeTheme.shouldUseDarkColors) {
+        nativeTheme.themeSource = 'light';
+    } else {
+        nativeTheme.themeSource = 'dark';
+    }
+    return nativeTheme.shouldUseDarkColors;
+});
+
+ipcMain.handle('dark-mode:system', () => {
+    nativeTheme.themeSource = 'system';
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

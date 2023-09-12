@@ -1,8 +1,8 @@
 const PRNG = require('./PRNG');
 
-const form = document.querySelector('.prng-form');
+const formPRNG = document.querySelector('#prng-form');
 
-form.addEventListener('submit', e => {
+formPRNG.addEventListener('submit', e => {
     e.preventDefault();
 
     const prng = new PRNG();

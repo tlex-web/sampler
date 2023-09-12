@@ -9,6 +9,7 @@
     --primary-color-dark: #a6a4a5;
     --primary-color-text: #333;
     --accent-color: #e75e0f;
+    color-scheme: light dark;
 }
 
 * {
@@ -202,6 +203,20 @@ form {
 .btn:active,
 .btn:focus {
     outline: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #333;
+        color: white;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background: #ddd;
+        color: black;
+    }
 }
 
 @keyframes scaleUp {

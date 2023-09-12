@@ -1,6 +1,6 @@
-const form = document.querySelector('.rdg-form');
+const formRDG = document.querySelector('#rdg-form');
 
-form.addEventListener('submit', e => {
+formRDG.addEventListener('submit', e => {
     e.preventDefault();
 
     const min = document.querySelector('#min').value;
