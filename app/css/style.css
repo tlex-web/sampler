@@ -205,6 +205,7 @@ form {
     outline: 0;
 }
 
+/* Update the color scheme for the dark-mode */
 @media (prefers-color-scheme: dark) {
     body {
         background: #333;

@@ -1,4 +1,3 @@
-const path = require('path');
 const log = require('electron-log/main');
 
 // Update the class to use the logging capabilities of Electron
@@ -49,3 +48,5 @@ class Logger {
         log.debug(message);
     }
 }
+
+module.exports = Logger;
