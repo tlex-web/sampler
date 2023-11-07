@@ -1,6 +1,8 @@
 // Create a custom menu bar
 
-const createMenu = (app, window, isDev) => {
+import MainWindow from './MainWindow';
+
+const createMenu = (app: Electron.App, window: MainWindow, isDev: boolean) => {
     const mainMenuTemplate = [
         {
             label: 'File',
@@ -163,7 +165,10 @@ const createMenu = (app, window, isDev) => {
 
     // If mac, add empty object to menu
     if (process.platform === 'darwin') {
-        mainMenuTemplate.unshift({});
+        mainMenuTemplate.unshift({
+            label: '',
+            submenu: [],
+        });
     }
 
     // Add developer tools item if not in production
@@ -179,7 +184,7 @@ const createMenu = (app, window, isDev) => {
                     },
                 },
                 {
-                    role: 'reload',
+                    label: 'Reload',
                     accelerator: 'CmdOrCtrl+R',
                     click() {
                         window.reload();
@@ -192,4 +197,4 @@ const createMenu = (app, window, isDev) => {
     return mainMenuTemplate;
 };
 
-module.exports = createMenu;
+export default createMenu;

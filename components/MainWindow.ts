@@ -1,8 +1,8 @@
-const { BrowserWindow } = require('electron');
-const path = require('path');
+import { BrowserWindow } from 'electron';
+import path from 'path';
 
 class MainWindow extends BrowserWindow {
-    constructor(file, isDev) {
+    constructor(file: string, isDev: boolean) {
         super({
             title: 'SamplerIO',
             width: isDev ? 800 : 550,
@@ -15,7 +15,6 @@ class MainWindow extends BrowserWindow {
             webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: true,
-                enableRemoteModule: true,
                 preload: path.join(__dirname, 'preload.js'),
             },
         });
@@ -28,4 +27,4 @@ class MainWindow extends BrowserWindow {
     }
 }
 
-module.exports = MainWindow;
+export default MainWindow;

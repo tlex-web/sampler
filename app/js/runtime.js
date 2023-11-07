@@ -1,5 +1,5 @@
-const { ipcRenderer } = require('electron');
-const path = require('path');
+import { ipcRenderer } from 'electron';
+import path from 'path';
 
 let seed;
 

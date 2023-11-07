@@ -1,4 +1,4 @@
-const PRNG = require('./PRNG');
+import PRNG from './PRNG';
 
 const formPRNG = document.querySelector('#prng-form');
 

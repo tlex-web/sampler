@@ -1,15 +1,15 @@
-const { app, ipcMain, nativeTheme, Menu, BrowserWindow } = require('electron');
+import { app, ipcMain, nativeTheme, Menu, BrowserWindow } from 'electron';
 
-const MainWindow = require('./components/MainWindow');
-const Store = require('./utils/Store');
-const createMenu = require('./components/menu');
+import MainWindow from './components/MainWindow';
+import Store from './utils/Store';
+import createMenu from './components/menu';
 
 // Set env
 process.env.NODE_ENV = 'development';
 
 const isDev = process.env.NODE_ENV !== 'production' ? true : false;
 
-let mainWindow;
+let mainWindow: MainWindow | null;
 
 function createWindow() {
     mainWindow = new MainWindow('index.html', isDev);
@@ -32,8 +32,8 @@ app.on('ready', () => {
     createWindow();
 
     // Save settings
-    mainWindow.webContents.on('dom-ready', () => {
-        mainWindow.webContents.send('settings:get', store.get('settings'));
+    mainWindow?.webContents.on('dom-ready', () => {
+        mainWindow?.webContents.send('settings:get', store.get('settings'));
     });
 
     // Create menu
@@ -55,7 +55,7 @@ app.on('ready', () => {
 // Set settings
 ipcMain.on('settings:set', (e, value) => {
     store.set('settings', value);
-    mainWindow.webContents.send('settings:get', store.get('settings'));
+    mainWindow?.webContents.send('settings:get', store.get('settings'));
 });
 
 // Add dark mode
@@ -81,6 +81,6 @@ app.on('window-all-closed', function () {
     mainWindow = null;
 });
 
-app.on('close', () => {
+app.on('quit', () => {
     mainWindow = null;
 });

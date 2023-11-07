@@ -6,7 +6,7 @@
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
 
-const { contextBridge, ipcRenderer } = require('electron');
+import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('darkMode', {
     toggle: () => ipcRenderer.invoke('dark-mode:toggle'),

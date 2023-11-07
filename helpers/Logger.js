@@ -1,4 +1,4 @@
-const log = require('electron-log/main');
+import { warn as _warn, info as _info, error as _error, debug as _debug } from 'electron-log/main';
 
 // Update the class to use the logging capabilities of Electron
 
@@ -21,7 +21,7 @@ class Logger {
             return;
         }
 
-        log.warn(message);
+        _warn(message);
     }
 
     info(message) {
@@ -29,7 +29,7 @@ class Logger {
             return;
         }
 
-        log.info(message);
+        _info(message);
     }
 
     error(message) {
@@ -37,7 +37,7 @@ class Logger {
             return;
         }
 
-        log.error(message);
+        _error(message);
     }
 
     debug(message) {
@@ -45,8 +45,8 @@ class Logger {
             return;
         }
 
-        log.debug(message);
+        _debug(message);
     }
 }
 
-module.exports = Logger;
+export default Logger;
