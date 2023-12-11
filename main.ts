@@ -1,5 +1,7 @@
 import { app, ipcMain, nativeTheme, Menu, BrowserWindow } from 'electron';
 
+import { storeOptions } from './library/store';
+
 import MainWindow from './components/MainWindow';
 import Store from './utils/Store';
 import createMenu from './components/menu';
@@ -9,7 +11,7 @@ process.env.NODE_ENV = 'development';
 
 const isDev = process.env.NODE_ENV !== 'production' ? true : false;
 
-let mainWindow: MainWindow | null;
+let mainWindow: MainWindow;
 
 function createWindow() {
     mainWindow = new MainWindow('index.html', isDev);
@@ -18,12 +20,9 @@ function createWindow() {
 // Init store & defaults
 const store = new Store({
     configName: 'user-settings',
-    defaults: {
-        settings: {
-            seed: 1,
-        },
-    },
-});
+    filePath: app.getPath('userData'),
+    defaultPath: '',
+} as storeOptions);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -32,8 +31,8 @@ app.on('ready', () => {
     createWindow();
 
     // Save settings
-    mainWindow?.webContents.on('dom-ready', () => {
-        mainWindow?.webContents.send('settings:get', store.get('settings'));
+    mainWindow.webContents.on('dom-ready', () => {
+        mainWindow.webContents.send('settings:get', store.get('settings'));
     });
 
     // Create menu
@@ -77,10 +76,8 @@ ipcMain.handle('dark-mode:system', () => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') app.quit();
-
-    mainWindow = null;
 });
 
 app.on('quit', () => {
-    mainWindow = null;
+    mainWindow.close();
 });
