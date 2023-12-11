@@ -1,12 +1,16 @@
 class PRNG {
+    private _length: number;
+    private mt: number[];
+    private index: number;
+
     /**
      * Pseudo random number generator
-     * @param {Number} seed
+     * @param {number} seed
      * @return Instance of PRNG
      * @see https://en.wikipedia.org/wiki/Pseudorandom_number_generator
      * @see https://en.wikipedia.org/wiki/Mersenne_Twister
      */
-    constructor(seed) {
+    constructor(seed: number) {
         this._length = 624;
         // The array holds the state of the generator
         this.mt = new Array(this._length);
@@ -29,10 +33,10 @@ class PRNG {
      * @return Number
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
      */
-    next(min, max) {
+    next(min: number, max: number) {
         // Normalize to [0, 1]
-        const randomNumber = this.generateRandomNumber() / 0xffffffff; // Max 32-bit unsigned integer
-        const range = max - min + 1;
+        const randomNumber: number = this.generateRandomNumber() / 0xffffffff; // Max 32-bit unsigned integer
+        const range: number = max - min + 1;
         // Round down to the nearest integer
         return Math.floor(randomNumber * range) + min;
     }
